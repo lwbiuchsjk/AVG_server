@@ -14,4 +14,14 @@ router.get('/next-move', async function(req, res) {
   res.send({options: options})
 })
 
+// 尝试返回信息
+// 直接将信息返回
+router.get('/get-anwser', function(req, res) {
+  res.send({
+    message: '收到信息',
+    hero: req.query.hero,
+    timeline: req.query.timeline
+  })
+})
+
 module.exports = router;
