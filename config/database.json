@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "photovoltaic",
+    "password": "lsb01099z.MYSQL",
+    "database": "timeline_anwser",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "timezone": "+08:00",
@@ -10,8 +10,8 @@
   },
   "test": {
     "username": "root",
-    "password": "heart4moon",
-    "database": "photovoltaic",
+    "password": "lsb01099z.MYSQL",
+    "database": "timeline_anwser",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "timezone": "+08:00",
@@ -19,8 +19,8 @@
   },
   "production": {
     "username": "root",
-    "password": null,
-    "database": "photovoltaic",
+    "password": "lsb01099z.MYSQL",
+    "database": "timeline_anwser",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "timezone": "+08:00",
