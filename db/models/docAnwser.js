@@ -2,35 +2,20 @@
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 
-/*
-const sequelize = new Sequelize('timeline_anwser', 'root', 'lsb01099z.MYSQL', {
-  host: 'localhost',
-  dialect: 'mysql'
-})
-
-sequelize.authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  })
-*/
-
 module.exports = (sequelize, DataTypes) => {
-  class DocAnwser extends Sequelize.Model {
+  class DocAnswer extends Sequelize.Model {
 
     /**
      * 查询文件指定是否正确
      * 
      * @static
-     * @param {*} doc_anwser
-     * @memberof DocAnwser
+     * @param {*} doc_answer
+     * @memberof DocAnswer
      */
-    static async checkAnwser(doc_anwser) {
-      let condition = new Array(doc_anwser.length)
-      for (let i = 0; i < doc_anwser.length; i++ ) {
-        let item = JSON.parse(doc_anwser[i])
+    static async checkAnswer(doc_answer) {
+      let condition = new Array(doc_answer.length)
+      for (let i = 0; i < doc_answer.length; i++ ) {
+        let item = JSON.parse(doc_answer[i])
         condition[i] = {
           doc_name: item.text,
           target_people: item.hero
@@ -41,8 +26,8 @@ module.exports = (sequelize, DataTypes) => {
         where: {
           [Op.or]: condition
         }
-      }).then(anwser => {
-        if(anwser.length == doc_anwser.length) {
+      }).then(answer => {
+        if(answer.length == doc_answer.length) {
           console.log("RIGHT!")
           return 1
         } else {
@@ -58,14 +43,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
 
-  DocAnwser.init({
+  DocAnswer.init({
     doc_name: DataTypes.STRING,
     target_people: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'DocAnwser',
-    tableName: 'doc_anwser',
+    modelName: 'DocAnswer',
+    tableName: 'doc_answer',
     timestamps: false
   })
-  return DocAnwser
+  return DocAnswer
 }

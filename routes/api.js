@@ -16,12 +16,13 @@ router.get('/next-move', async function(req, res) {
 
 // 尝试返回信息
 // 直接将信息返回
-router.get('/get-anwser', async function(req, res) {
-  let anwser = await models.DocAnwser.checkAnwser(req.query.hero)
-  if (anwser == 1) {
-    res.send({hero: "正确"})
+router.get('/get-Answer', async function(req, res) {
+  let doc_answer = await models.DocAnswer.checkAnswer(req.query.hero)
+  let timeline_answer = await models.TimelineAnswer.checkAnswer(req.query.timeline)
+  if (doc_answer == 1) {
+    res.send({hero: "正确", timeline: timeline_answer})
   } else {
-    res.send({hero: "错误"})
+    res.send({hero: "错误", timeline: "请先选择正确人员"})
   }
 })
 
