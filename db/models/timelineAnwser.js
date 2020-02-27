@@ -13,36 +13,31 @@ module.exports = (sequelize, DataTypes) => {
          * @memberof TimelineAnswer
          */
         static async checkAnswer(timeline_answer) {
-            console.log(timeline_answer)
-            let last_answer = ""
-            let result = await this.findOne({
+            let last_answer = await this.findOne({
                 where: {
                     timeline_answer: "wrong"
                 }
-            }).then(answer => {
-                last_answer = answer.get({ plain: true }).action
-            }).findAll({
-            }).then(answers => {
-                for (let index in answers) {
-                    let item = answers[index].get({ plain: true })
-                    let array = item.timeline_answer.split(',')
-                    if (array.length == timeline_answer.length) {
-                        for (let j in array) {
-                            if (array[j] != timeline_answer[j] && array[j] != "*") {
-                                return last_answer.action
-                            }
-                        }
-                        return item.action
-                    } else {
-                        return last_answer.action
-                    }
-                }
-                return last_answer.action
-            }).catch(error => {
-                console.log(error)
             })
 
-            return result
+            let true_answers = await this.findAll({})
+
+            for (let index in true_answers) {
+                let answer = true_answers[index].get({plain:true})
+                let array = answer.timeline_answer.split(',')
+                let bingoNumber = 0
+                if (array.length == timeline_answer.length) {
+                    for (let j in array) {
+                        if (timeline_answer[j] != undefined && timeline_answer[j] != "" && (array[j] == timeline_answer[j] || array[j] == "*")) {
+                            bingoNumber++
+                        }
+                    }
+                    if (bingoNumber == array.length) {
+                        return answer
+                    }
+                } 
+            }
+            
+            return last_answer.get({plain: true})
         }
     }
 

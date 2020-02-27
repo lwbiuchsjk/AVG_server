@@ -1,4 +1,5 @@
 var express = require('express');
+var path = require('path');
 var router = express.Router();
 const models = require('../db/models')
 
@@ -18,12 +19,19 @@ router.get('/next-move', async function(req, res) {
 // 直接将信息返回
 router.get('/get-Answer', async function(req, res) {
   let doc_answer = await models.DocAnswer.checkAnswer(req.query.hero)
-  let timeline_answer = await models.TimelineAnswer.checkAnswer(req.query.timeline)
+  let timeline = await models.TimelineAnswer.checkAnswer(req.query.timeline)
   if (doc_answer == 1) {
-    res.send({hero: "正确", timeline: timeline_answer})
+    console.log(timeline.action)
+    res.send({hero: "正确", timeline: timeline.timeline_answer, fileName: timeline.action})
+    //console.log(path.join(__dirname, '../public', "test.txt"))
+    //res.sendFile(timeline.action)
   } else {
-    res.send({hero: "错误", timeline: "请先选择正确人员"})
+    res.send({hero: "错误", timeline: "请先选择正确人员", fileName: ""})
   }
+})
+
+router.get('/test', async function(req, res) {
+  res.sendFile(path.join(__dirname, '../public', "test.txt"))
 })
 
 module.exports = router;
