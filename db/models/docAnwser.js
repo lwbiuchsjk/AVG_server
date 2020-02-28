@@ -45,9 +45,9 @@ module.exports = (sequelize, DataTypes) => {
         static async checkTimelineAnswer(doc_timeline) {
             let timeline_right = function(timeline) {
                 // 辅助方法，判断提交的timeline就是正确的timeline
-                let before_sort = new Array(doc_timeline.doc)
-                for (let i in doc_timeline) {
-                    before_sort[i] = doc_timeline[i]
+                let before_sort = new Array(timeline.length)
+                for (let i in timeline) {
+                    before_sort[i] = timeline[i]
                 }
                 let after_sort = timeline.sort()
                 console.log(before_sort)
@@ -83,10 +83,12 @@ module.exports = (sequelize, DataTypes) => {
 
             for (let index in true_answers) {
                 let answer = true_answers[index].get({plain:true})
+                console.log(answer)
                 let tid = doc_timeline.indexOf(answer.doc_name)
                 player_timeline[tid] = answer.timeline
             }
 
+            console.log(player_timeline)
             if (timeline_right(player_timeline)) {
                 return 1
             }
