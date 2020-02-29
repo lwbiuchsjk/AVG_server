@@ -25,24 +25,25 @@ router.get('/get-Answer', async function (req, res) {
         switch (timeline) {
             case 1:
                 timeline_answer = await models.TimelineAnswer.checkAnswer(timeline)
-                res.send({ hero: '人员正确', timeline: "时间线正确", fileName: timeline_answer.action })
+                res.send({ hero: '调查对象正确', timeline: "时间线正确", fileName: timeline_answer.action })
                 break;
             case 0:
                 timeline_answer = await models.TimelineAnswer.checkAnswer(timeline)
-                res.send({ hero: '人员正确', timeline: "时间线错误", fileName: timeline_answer.action })
+                res.send({ hero: '调查对象正确', timeline: "时间线错误", fileName: timeline_answer.action })
                 break;
             case -1:
-                res.send({ hero: '人员正确', timeline: "请补全时间线", fileName: "" })
+                res.send({ hero: '调查对象正确', timeline: "请补全时间线", fileName: "" })
                 break;
             default:
                 console.log("ERR!")
         }
     } else {
-        res.send({ hero: "错误", timeline: "请先选择正确人员", fileName: "" })
+        res.send({ hero: "调查对象错误", timeline: "", fileName: "" })
     }
 })
 
-router.get('/test', async function (req, res) {
+router.get('/game-begin', async function (req, res) {
+    //console.log(path.join(__dirname, '../public/file/', "调查5.pdf"))
     res.sendFile(path.join(__dirname, '../public', "test.txt"))
 })
 
